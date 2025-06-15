@@ -133,7 +133,9 @@
             align-items: center;
             gap: 2rem;
         }
-
+.timeline-content p {
+    text-transform: none; /* Override any existing text-transform */
+}
         .nav-links {
             display: flex;
             list-style: none;
@@ -1109,7 +1111,30 @@ transactions.
         // Example usage:
         updateNavTheme("#ffffff"); // Call this dynamically if your bg changes
 
+function formatTimelineText() {
+    const timelineItems = document.querySelectorAll('.timeline-content p');
+    
+    timelineItems.forEach(paragraph => {
+        let text = paragraph.textContent;
+        
+        // Convert to lowercase first
+        text = text.toLowerCase();
+        
+        // Capitalize first letter of the entire text
+        text = text.charAt(0).toUpperCase() + text.slice(1);
+        
+        // Capitalize first letter after each period followed by space
+        text = text.replace(/\.\s+([a-z])/g, function(match, letter) {
+            return '. ' + letter.toUpperCase();
+        });
+        
+        // Update the paragraph content
+        paragraph.textContent = text;
+    });
+}
 
+// Call the function after the DOM is loaded
+document.addEventListener('DOMContentLoaded', formatTimelineText);
         // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
         // 1) Register plugin
