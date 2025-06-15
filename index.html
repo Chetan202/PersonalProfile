@@ -1123,13 +1123,13 @@ function formatTimelineText() {
         // Capitalize first letter of the entire text
         text = text.charAt(0).toUpperCase() + text.slice(1);
         
-        // Capitalize first letter after each period followed by space
+        // Capitalize first letter after each period and add line break
         text = text.replace(/\.\s+([a-z])/g, function(match, letter) {
-            return '. ' + letter.toUpperCase();
+            return '.\n' + letter.toUpperCase();
         });
         
-        // Update the paragraph content
-        paragraph.textContent = text;
+        // Use innerHTML instead of textContent to preserve line breaks
+        paragraph.innerHTML = text.replace(/\n/g, '<br>');
     });
 }
 
